@@ -1,0 +1,93 @@
+class Node :
+
+    def init(self,data,parent) :
+
+            self.data = data
+
+            self.children = []
+
+            self.parent = parent
+
+            self.check = False
+
+            
+
+    def addChild(self,child):
+
+        self.children.append(child)
+
+    
+
+class Solution(object):
+
+    def letterCombinations(self, digits):
+
+        """
+
+        :type digits: str
+
+        :rtype: List[str]
+
+        """
+
+        letter = {
+
+            '2' : 'abc', '3' : 'def' , '4':'ghi' , '5': 'jkl' ,
+
+            '6': 'mno' , '7' : 'pqrs' , '8':'tuv' , '9' : 'wxyz'
+
+        }
+
+    
+
+        root = Node(None,None)
+
+        stack , result = [] , []
+
+        depth , goal = 0 , len(digits)
+
+        for digit in digits: #2,3,4
+
+            search_stack ,check = [root] , []
+
+            depth += 1
+
+            while search_stack :
+
+                current = search_stack.pop()
+
+                if current in check :
+
+                    continue
+
+                check.append(current)
+
+                search_stack.extend(current.children)
+
+    
+
+                if current.check is False:
+
+                    stack.append(current)
+
+    
+
+            while stack :
+
+                current = stack.pop()
+
+                current.check = True
+
+                for char in letter[digit]:
+
+                    newNode = Node(str(current.data or '') + char, current)
+
+                    current.addChild(newNode)
+
+                    if depth == goal:
+
+                        result.append(newNode.data)
+
+    
+
+        return result
