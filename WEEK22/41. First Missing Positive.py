@@ -1,12 +1,5 @@
 class Solution(object):
     def firstMissingPositive(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        lmax = max(nums)
-        if lmax < 0 :
-            return 1
         m = [False]*(len(nums)+1)
         m[0] = True
         for num in nums:
@@ -17,4 +10,4 @@ class Solution(object):
             if visited == False:
                 return index
             
-        return lmax+1
+        return max(nums)+1
